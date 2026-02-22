@@ -59,7 +59,7 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 | --------- | --------------------------------------------------------- |
 | Framework | [Next.js 16](https://nextjs.org) (App Router + Turbopack) |
 | Language  | TypeScript                                                |
-| AI SDK    | [Vercel AI SDK](https://sdk.vercel.ai)                    |
+| AI SDK    | [Vercel AI SDK v4](https://sdk.vercel.ai)                 |
 | Providers | Groq, Hugging Face                                        |
 | Styling   | Tailwind CSS v4                                           |
 | Markdown  | react-markdown                                            |
@@ -67,37 +67,20 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ---
 
-## 📁 Project Structure
+## 🛠️ Troubleshooting
 
-```
-src/
-└── app/
-    ├── page.tsx          # Main UI — prompt input, provider selector, output display
-    ├── layout.tsx        # Root layout and metadata
-    ├── globals.css       # Global styles (Tailwind import)
-    └── api/
-        └── generate/
-            └── route.ts  # POST endpoint — handles provider selection and streaming
-```
+### Workspace Root Confusion (Windows)
 
----
+If you encounter the error `Can't resolve '@tailwindcss/typography'`, it is likely because Next.js/Tailwind is detecting a `package.json` in a parent directory (e.g., your home folder `C:\Users\User`) and assuming a workspace root.
 
-## 🔑 API Reference
+**Solutions:**
 
-### `POST /api/generate`
-
-Generates a structured AI prompt based on the user's input.
-
-**Request Body:**
-
-```json
-{
-  "prompt": "Your short idea here",
-  "provider": "groq" | "huggingface"
-}
-```
-
-**Response:** A streamed text response (data stream format via AI SDK).
+1.  **Strict Project Root**: The project is configured with `turbopack.root` in `next.config.ts` to enforce the local directory.
+2.  **Explicit Plugin Paths**: In `src/app/globals.css`, we use an explicit relative path for Tailwind plugins:
+    ```css
+    @plugin "../../node_modules/@tailwindcss/typography";
+    ```
+3.  **Cleanup**: If possible, rename or move any stray `package.json` files in your home directory.
 
 ---
 

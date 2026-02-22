@@ -82,7 +82,7 @@ export default function Home() {
                   <div className="relative">
                     <select
                       value={provider}
-                      onChange={(e) => setProvider(e.target.value as any)}
+                      onChange={(e) => setProvider(e.target.value as "groq" | "huggingface")}
                       className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm appearance-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500/50 outline-none transition-all cursor-pointer"
                     >
                       <option value="groq">Groq • Llama 3.3 70B</option>
@@ -219,22 +219,6 @@ export default function Home() {
           </div>
         </div>
       </div>
-
-      <style jsx global>{`
-        .custom-scrollbar::-webkit-scrollbar {
-          width: 6px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-track {
-          background: transparent;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-          background: #1e293b;
-          border-radius: 10px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-          background: #334155;
-        }
-      `}</style>
     </div>
   );
 }
