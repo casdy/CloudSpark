@@ -5,11 +5,12 @@ const GUEST_USER_ID = "cloudspark-guest";
 
 export async function GET(
   req: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const conversation = await prisma.conversation.findUnique({
-      where: { id: params.id, userId: GUEST_USER_ID },
+      where: { id, userId: GUEST_USER_ID },
       include: {
         messages: {
           orderBy: { createdAt: "asc" },
@@ -24,11 +25,12 @@ export async function GET(
 
 export async function DELETE(
   req: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     await prisma.conversation.delete({
-      where: { id: params.id, userId: GUEST_USER_ID },
+      where: { id, userId: GUEST_USER_ID },
     });
     return NextResponse.json({ success: true });
   } catch (error) {

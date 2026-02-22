@@ -74,13 +74,20 @@ export async function POST(req: Request) {
   
   // Create conversation if it doesn't exist
   if (!activeConversationId) {
+    const title = lastMessage.content.trim().substring(0, 40) || "New Conversation";
     const newConv = await prisma.conversation.create({
       data: {
-        title: lastMessage.content.substring(0, 50) || "New Conversation",
+        title: title.length < lastMessage.content.trim().length ? `${title}...` : title,
         userId: GUEST_USER_ID,
       },
     });
     activeConversationId = newConv.id;
+  } else {
+    // Touch the conversation to update updatedAt timestamp for sorting
+    await prisma.conversation.update({
+      where: { id: activeConversationId },
+      data: { updatedAt: new Date() },
+    });
   }
 
   // Save the incoming user message

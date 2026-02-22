@@ -111,6 +111,7 @@ export default function ChatPage() {
   const [models, setModels] = useState<any[]>([]);
   const [selectedModelId, setSelectedModelId] = useState("");
   const [domain, setDomain] = useState("General");
+  const [isPendingConversation, setIsPendingConversation] = useState(false);
 
   useEffect(() => {
     setIsMounted(true);
@@ -122,6 +123,13 @@ export default function ChatPage() {
       modelId: selectedModelId,
       conversationId: activeConversationId,
       domain,
+    },
+    onResponse: (response: Response) => {
+      setIsPendingConversation(false);
+      const convId = response.headers.get('x-conversation-id');
+      if (convId && convId !== activeConversationId) {
+        setActiveConversationId(convId);
+      }
     },
     onFinish: () => {
       fetchConversations();
@@ -163,7 +171,12 @@ export default function ChatPage() {
     setActiveConversationId(id);
     const res = await fetch(`/api/conversations/${id}`);
     const data = await res.json();
-    setMessages(data.messages);
+    if (data && Array.isArray(data.messages)) {
+      setMessages(data.messages);
+    } else {
+      console.error("Invalid conversation data:", data);
+      setMessages([]); // Fallback to empty
+    }
   };
 
   const deleteConversation = async (id: string, e: React.MouseEvent) => {
@@ -171,6 +184,17 @@ export default function ChatPage() {
     await fetch(`/api/conversations/${id}`, { method: "DELETE" });
     if (activeConversationId === id) startNewChat();
     fetchConversations();
+  };
+
+  const handleFormSubmit = (e: React.FormEvent) => {
+    if (isLoading || isPendingConversation) {
+      e.preventDefault();
+      return;
+    }
+    if (!activeConversationId) {
+      setIsPendingConversation(true);
+    }
+    handleSubmit(e);
   };
 
   if (!isMounted) return <div className="bg-[#050505] h-screen w-screen" />;
@@ -386,7 +410,7 @@ export default function ChatPage() {
               <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500/20 to-purple-500/20 rounded-3xl blur-xl opacity-0 group-focus-within:opacity-100 transition-all duration-500" />
               
               <form 
-                onSubmit={handleSubmit}
+                onSubmit={handleFormSubmit}
                 className="relative flex items-end gap-3 bg-[#0d0d0f]/80 backdrop-blur-xl border border-zinc-800/50 focus-within:border-indigo-500/50 p-4 rounded-3xl shadow-3xl transition-all"
               >
                 <textarea
@@ -395,9 +419,10 @@ export default function ChatPage() {
                   onKeyDown={(e) => {
                     if (e.key === "Enter" && !e.shiftKey) {
                       e.preventDefault();
-                      handleSubmit(e as any);
+                      handleFormSubmit(e as any);
                     }
                   }}
+                  disabled={isLoading || isPendingConversation}
                   placeholder="Transmit instruction message..."
                   className="flex-1 bg-transparent border-none outline-none py-2 px-3 text-sm min-h-[48px] max-h-48 resize-none text-zinc-200 placeholder:text-zinc-700 font-medium"
                   rows={1}
@@ -414,7 +439,7 @@ export default function ChatPage() {
                     </button>
                   ) : (
                     <button 
-                      disabled={!input.trim()}
+                      disabled={!input.trim() || isLoading || isPendingConversation}
                       className="p-3 rounded-2xl bg-indigo-600 hover:bg-indigo-500 text-white transition-all disabled:opacity-20 disabled:hover:bg-indigo-600 shadow-xl shadow-indigo-600/20 active:scale-95 group/btn"
                     >
                       <Zap className="w-5 h-5 group-hover/btn:fill-current" />

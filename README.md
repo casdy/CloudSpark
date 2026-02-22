@@ -1,17 +1,17 @@
-# ⚡ CloudSpark — AI Prompt Generator
+# ⚡ CloudSpark — AI Chat bot
 
-CloudSpark is an AI-powered prompt engineering tool built with Next.js. Give it a short idea and it instantly crafts a comprehensive, structured system prompt ready for use with any AI model.
+CloudSpark is an AI-powered chat bot built with Next.js. Give it a short idea and it instantly crafts a comprehensive, structured system prompt ready for use with any AI model or just chat with it.
 
 ---
 
 ## ✨ CloudSpark v3 Features
 
--
-- **Neural Stability Engine** — Robust database layer using [Prisma 6](https://www.prisma.io) and SQLite for persistent conversation history.
-- **Premium Tech Loader** — A state-of-the-art "System Boot" sequence that synchronizes neural clusters before interface initialization.
-- **Dual Neural Hubs** — Seamless routing between [Groq](https://groq.com) and [Hugging Face](https://huggingface.co) models with domain-specific calibration.
+- **Neural Stability Engine** — Optimized database layer standardizing on Prisma 6 and SQLite for guaranteed persistence and reliability.
+- **Premium Tech Loader** — A state-of-the-art "System Boot" sequence that synchronizes neural clusters before interface initialization, ensuring a seamless user experience.
+- **Dual Neural Hubs** — Seamless routing between [Groq](https://groq.com) and [Hugging Face](https://huggingface.co) models with domain-specific calibration for Coding and Finance.
+- **Singularization Protocol** — A "Pending Cluster" lock that prevents fragmented history by ensuring conversation creation is a strictly singular, atomic action.
+- **Async Dynamic Layer** — Advanced Next.js 16 route handling that correctly leverages asynchronous parameters for robust cluster retrieval.
 - **Cyber-Terminal UI** — High-contrast dark mode featuring glassmorphism, fluid micro-animations, and a collapsible neural cluster sidebar.
-- **Conversation Matrix** — Full CRUD support for chat history: create, reload, rename, and delete conversation clusters.
 
 ---
 
