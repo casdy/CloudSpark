@@ -4,13 +4,14 @@ CloudSpark is an AI-powered prompt engineering tool built with Next.js. Give it 
 
 ---
 
-## ✨ Features
+## ✨ CloudSpark v3 Features
 
-- **Dual AI Providers** — Switch between [Groq](https://groq.com) (Llama 3.3 70B) and [Hugging Face](https://huggingface.co) (Meta Llama 3 8B) on the fly
-- **Streaming Responses** — Output streams in real-time as it's generated
-- **Prompt Engineering Engine** — Generates prompts with structured Role, Objective, Requirements, and Formatting sections
-- **Copy to Clipboard** — One-click copy of the generated prompt
-- **Dark Futuristic UI** — Built with Tailwind CSS v4 and animated with smooth transitions
+-
+- **Neural Stability Engine** — Robust database layer using [Prisma 6](https://www.prisma.io) and SQLite for persistent conversation history.
+- **Premium Tech Loader** — A state-of-the-art "System Boot" sequence that synchronizes neural clusters before interface initialization.
+- **Dual Neural Hubs** — Seamless routing between [Groq](https://groq.com) and [Hugging Face](https://huggingface.co) models with domain-specific calibration.
+- **Cyber-Terminal UI** — High-contrast dark mode featuring glassmorphism, fluid micro-animations, and a collapsible neural cluster sidebar.
+- **Conversation Matrix** — Full CRUD support for chat history: create, reload, rename, and delete conversation clusters.
 
 ---
 
@@ -34,9 +35,10 @@ npm install
 
 ### Environment Variables
 
-Create a `.env.local` file in the project root:
+Create a `.env` file in the project root:
 
 ```env
+DATABASE_URL="file:./dev.db"
 GROQ_API_KEY=your_groq_api_key_here
 HUGGINGFACE_API_KEY=your_huggingface_api_key_here
 ```
@@ -55,15 +57,15 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ## 🛠️ Tech Stack
 
-| Layer     | Technology                                                |
-| --------- | --------------------------------------------------------- |
-| Framework | [Next.js 16](https://nextjs.org) (App Router + Turbopack) |
-| Language  | TypeScript                                                |
-| AI SDK    | [Vercel AI SDK v4](https://sdk.vercel.ai)                 |
-| Providers | Groq, Hugging Face                                        |
-| Styling   | Tailwind CSS v4                                           |
-| Markdown  | react-markdown                                            |
-| Icons     | lucide-react                                              |
+| Layer      | Technology                                                |
+| ---------- | --------------------------------------------------------- |
+| Framework  | [Next.js 16](https://nextjs.org) (App Router + Turbopack) |
+| ORM        | [Prisma 6](https://www.prisma.io) (SQLite)                |
+| Language   | TypeScript                                                |
+| AI SDK     | [Vercel AI SDK v4](https://sdk.vercel.ai)                 |
+| Providers  | Groq, Hugging Face                                        |
+| UI Library | Lucide React, Framer Motion (Transitions)                 |
+| Styling    | Tailwind CSS v4                                           |
 
 ---
 

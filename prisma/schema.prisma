@@ -1,0 +1,56 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  engineType = "library"
+}
+
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+
+model User {
+  id            String          @id @default(cuid())
+  email         String?         @unique
+  password      String?
+  image         String?
+  createdAt     DateTime        @default(now())
+  conversations Conversation[]
+}
+
+model Conversation {
+  id        String    @id @default(cuid())
+  title     String
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  messages  Message[]
+
+  @@index([userId])
+}
+
+model Message {
+  id             String       @id @default(cuid())
+  content        String
+  role           String       // "user", "assistant", "system"
+  conversationId String
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  modelUsed      String?
+  createdAt      DateTime     @default(now())
+
+  @@index([conversationId])
+}
+
+model AIModel {
+  id        String   @id @default(cuid())
+  name      String
+  provider  String   // "Groq", "HuggingFace"
+  type      String   // "chat", "QA"
+  isEnabled Boolean  @default(true)
+  createdAt DateTime @default(now())
+}

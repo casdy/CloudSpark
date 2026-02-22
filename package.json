@@ -11,9 +11,14 @@
   "dependencies": {
     "@ai-sdk/groq": "^1.2.9",
     "@ai-sdk/huggingface": "^1.0.32",
+    "@auth/prisma-adapter": "^2.11.1",
+    "@prisma/client": "^6.4.1",
     "ai": "^4.3.19",
+    "bcryptjs": "^3.0.3",
     "lucide-react": "^0.473.0",
     "next": "16.1.6",
+    "next-auth": "^5.0.0-beta.30",
+    "prisma": "^6.4.1",
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "react-markdown": "^9.0.1"
@@ -21,6 +26,7 @@
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
     "@tailwindcss/typography": "^0.5.16",
+    "@types/bcryptjs": "^2.4.6",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
@@ -28,5 +34,8 @@
     "eslint-config-next": "16.1.6",
     "tailwindcss": "^4",
     "typescript": "^5"
+  },
+  "prisma": {
+    "seed": "npx tsx prisma/seed.ts"
   }
 }
